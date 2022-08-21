@@ -16,7 +16,6 @@ namespace FilmesApi.Controllers
         {
             _filmeService = filmeService;
         }
-        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> AdicionarFilme([FromBody] FilmeDto filme)
         {
