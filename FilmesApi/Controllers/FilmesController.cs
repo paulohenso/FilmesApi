@@ -16,6 +16,7 @@ namespace FilmesApi.Controllers
         {
             _filmeService = filmeService;
         }
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> AdicionarFilme([FromBody] FilmeDto filme)
         {
@@ -23,7 +24,7 @@ namespace FilmesApi.Controllers
             return Ok(filme);
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles ="Administrator,Guest")]
         [HttpGet]
         public async Task<IEnumerable<FilmeModel>> BuscarFilmesPorTitulo([FromQuery] FilmeQueryParams filmeQuery)
         {
