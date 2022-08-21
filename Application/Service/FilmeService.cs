@@ -26,11 +26,11 @@ namespace Application.Service
 
         public async Task<IEnumerable<FilmeModel>> GetFilmes(FilmeQueryParams filmeQuery)
         {
-           var filmes = await _filmeRepository.GetFilmes(filmeQuery);
-            
-            if(!filmes.Any())
+            var filmes = await _filmeRepository.GetFilmes(filmeQuery);
+
+            if (!filmes.Any())
             {
-                throw new BadRequestException("Não existe requisição no período selecionado");
+                throw new BadRequestException("Filme não encotrado");
             }
 
             return filmes;

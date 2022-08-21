@@ -26,7 +26,7 @@ namespace FilmesApi.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IEnumerable<FilmeModel>> BuscarFilmes([FromQuery] FilmeQueryParams filmeQuery)
+        public async Task<IEnumerable<FilmeModel>> BuscarFilmesPorTitulo([FromQuery] FilmeQueryParams filmeQuery)
         {
             return await _filmeService.GetFilmes(filmeQuery);
         }

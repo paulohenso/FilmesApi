@@ -1,5 +1,4 @@
-﻿using AspNetCore.IQueryable.Extensions;
-using Domain.Models;
+﻿using Domain.Models;
 using Domain.QueryParams;
 using Infrastructure.Database.Context;
 using Infrastructure.IRepository;
@@ -24,11 +23,19 @@ namespace Infrastructure.Repository
 
         public async Task<IEnumerable<FilmeModel>> GetFilmes(FilmeQueryParams filmeQuery)
         {
-            return await _sqliteContext.Filmes.Where(
-                f => f.Titulo.Contains(filmeQuery.Titulo))
+            if (String.IsNullOrEmpty(filmeQuery.Titulo))
+            {
+                return await _sqliteContext.Filmes
                 .Skip((filmeQuery.Pagina - 1) * filmeQuery.Limite)
-                .Take(filmeQuery.Limite)                
+                .Take(filmeQuery.Limite)
                 .ToListAsync();
+
+            }
+            return await _sqliteContext.Filmes.Where(
+            f => f.Titulo.ToLower().Contains(filmeQuery.Titulo.ToLower()))
+            .Skip((filmeQuery.Pagina - 1) * filmeQuery.Limite)
+            .Take(filmeQuery.Limite)
+            .ToListAsync();
         }
     }
 }
